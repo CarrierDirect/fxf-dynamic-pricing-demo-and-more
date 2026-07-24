@@ -262,7 +262,7 @@
   .ltls-fri-sub strong { color: #15803d; }
   .ltls-fri-cta { background: #16a34a; color: #fff; border: none; border-radius: 8px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
   .ltls-fri-cta:hover { background: #15803d; }
-  .ltls-save-badge { display: inline-block; background: #16a34a; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; margin-bottom: 3px; letter-spacing: 0.02em; white-space: nowrap; }
+  .ltls-save-badge { display: block; color: #16a34a; font-size: 10px; font-weight: 600; margin-top: 4px; text-align: right; white-space: nowrap; }
   .ltls-fri-active { margin: 6px 14px 8px; background: #dcfce7; border: 1.5px solid #4ade80; border-radius: 10px; padding: 9px 14px; display: flex; align-items: center; justify-content: space-between; }
   .ltls-fri-active-txt { font-size: 12px; font-weight: 600; color: #15803d; }
   .ltls-fri-revert { background: none; border: 1.5px solid #4ade80; color: #15803d; border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 600; cursor: pointer; }
@@ -808,13 +808,13 @@
       <span class="sb-item-ico">&#9889;</span>
       Dynamic Pricing
     </div>
-    <div class="sb-item" id="sb-monetize" onclick="showView('monetize')">
-      <span class="sb-item-ico">&#128176;</span>
-      Monetizing LTL Select
-    </div>
     <div class="sb-item" id="sb-guest" onclick="showView('guest')">
       <span class="sb-item-ico">&#128722;</span>
       Guest Checkout
+    </div>
+    <div class="sb-item" id="sb-monetize" onclick="showView('monetize')">
+      <span class="sb-item-ico">&#128176;</span>
+      Monetizing LTL Select
     </div>
     <div class="sb-item" id="sb-lane" onclick="showView('lane')">
       <span class="sb-item-ico">&#128202;</span>
@@ -1248,7 +1248,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <span class="ltls-save-badge" id="ltls-save-p1" style="display:none;"></span><button class="ltls-price-pill" id="ltls-p1">US$936.00</button>
+                        <button class="ltls-price-pill" id="ltls-p1">US$936.00</button><span class="ltls-save-badge" id="ltls-save-p1" style="display:none;"></span>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -1258,7 +1258,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <span class="ltls-save-badge" id="ltls-save-p2" style="display:none;"></span><button class="ltls-price-pill" id="ltls-p2">US$583.00</button>
+                        <button class="ltls-price-pill" id="ltls-p2">US$583.00</button><span class="ltls-save-badge" id="ltls-save-p2" style="display:none;"></span>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -1298,7 +1298,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <span class="ltls-save-badge" id="ltls-save-e1" style="display:none;"></span><button class="ltls-price-pill" id="ltls-e1">US$891.00</button>
+                        <button class="ltls-price-pill" id="ltls-e1">US$891.00</button><span class="ltls-save-badge" id="ltls-save-e1" style="display:none;"></span>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -1309,7 +1309,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <span class="ltls-save-badge" id="ltls-save-e2" style="display:none;"></span><button class="ltls-price-pill" id="ltls-e2">US$754.00</button>
+                        <button class="ltls-price-pill" id="ltls-e2">US$754.00</button><span class="ltls-save-badge" id="ltls-save-e2" style="display:none;"></span>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -1319,7 +1319,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <span class="ltls-save-badge" id="ltls-save-e3" style="display:none;"></span><button class="ltls-price-pill" id="ltls-e3">US$532.00</button>
+                        <button class="ltls-price-pill" id="ltls-e3">US$532.00</button><span class="ltls-save-badge" id="ltls-save-e3" style="display:none;"></span>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
