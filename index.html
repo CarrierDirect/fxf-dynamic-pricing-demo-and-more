@@ -13,8 +13,8 @@
   .g-nav { background: #2a0f66; height: 52px; display: flex; align-items: center; padding: 0 16px; gap: 8px; flex-shrink: 0; }
   .g-hamburger { color: rgba(255,255,255,0.7); font-size: 18px; cursor: pointer; margin-right: 4px; }
   .g-logo { font-size: 18px; font-weight: 800; margin-right: 10px; white-space: nowrap; }
-  .g-logo-ltl { color: #fbbf24; }
-  .g-logo-sel { color: #fff; }
+  .g-logo-ltl { color: #fff; }
+  .g-logo-sel { color: #FF6200; }
   .g-nav-btn { background: #FF6200; color: #fff; border: none; border-radius: 20px; padding: 5px 11px; font-size: 10px; font-weight: 700; cursor: pointer; letter-spacing: 0.03em; white-space: nowrap; }
   .g-nav-btn:hover { background: #e05500; }
   .g-search { background: rgba(255,255,255,0.12); border: none; border-radius: 20px; padding: 6px 16px; color: rgba(255,255,255,0.6); font-size: 12px; width: 200px; outline: none; margin-left: auto; }
@@ -61,10 +61,12 @@
   .dash-star { color: #d1d5db; font-size: 15px; flex-shrink: 0; width: 18px; }
   .dash-star.on { color: #fbbf24; }
   .dash-carrier { flex-shrink: 0; width: 130px; }
-  .fxf-fed { color: #4D148C; font-weight: 900; font-size: 14px; font-family: 'Arial Black', sans-serif; }
-  .fxf-ex  { color: #FF6200; font-weight: 900; font-size: 14px; font-family: 'Arial Black', sans-serif; }
-  .fxf-dot { color: #FF6200; font-weight: 900; font-size: 14px; }
-  .fxf-frt { color: #6b7280; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-left: 2px; vertical-align: text-top; }
+  .fxf-logo-wrap { display: inline-flex; flex-direction: column; line-height: 1; }
+  .fxf-logo-top { line-height: 1; }
+  .fxf-fed { color: #4D148C; font-weight: 900; font-size: 15px; font-family: 'Arial Black', Arial, sans-serif; }
+  .fxf-ex  { color: #FF6200; font-weight: 900; font-size: 15px; font-family: 'Arial Black', Arial, sans-serif; }
+  .fxf-dot { display: none; }
+  .fxf-frt { display: block; color: #4D148C; font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 1px; padding-left: 1px; font-family: Arial, sans-serif; }
   .fxfe-tag { font-size: 11px; color: #6b7280; margin-top: 2px; }
   .dash-pro { width: 140px; flex-shrink: 0; }
   .dash-pro-label, .dash-bol-label { font-size: 10px; color: #9ca3af; }
@@ -790,7 +792,6 @@
 
 <!-- ===== GLOBAL TOPNAV ===== -->
 <nav class="g-nav">
-  <span class="g-hamburger">&#9776;</span>
   <span class="g-logo"><span class="g-logo-ltl">LTL</span> <span class="g-logo-sel">Select</span></span>
   <span style="color:rgba(255,255,255,0.5);font-size:13px;font-weight:400;margin-left:4px;letter-spacing:0.01em;">Future Roadmap Prototypes</span>
   <div class="g-avatar">HB</div>
@@ -801,10 +802,6 @@
 
   <!-- SIDEBAR -->
   <aside class="g-sidebar">
-    <div class="sb-home" onclick="showView('dashboard')">
-      <span class="sb-home-ico">&#127968;</span>
-      <span class="sb-home-txt">Dashboard</span>
-    </div>
     <div class="sb-section">Prototypes</div>
     <div class="sb-item active" id="sb-dp" onclick="showView('dp')">
       <span class="sb-item-ico">&#9889;</span>
@@ -889,7 +886,7 @@
         <div class="dash-row">
           <span class="dash-star">&#9733;</span>
           <div class="dash-carrier">
-            <div><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span><span class="fxf-dot">.</span><span class="fxf-frt">Freight</span></div>
+            <div><span class="fxf-logo-wrap"><span class="fxf-logo-top"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span></span><span class="fxf-frt">Freight</span></span></div>
             <div class="fxfe-tag">FXFE</div>
           </div>
           <div class="dash-pro">
@@ -907,7 +904,7 @@
         <div class="dash-row">
           <span class="dash-star on">&#9733;</span>
           <div class="dash-carrier">
-            <div><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span><span class="fxf-dot">.</span><span class="fxf-frt">Freight</span></div>
+            <div><span class="fxf-logo-wrap"><span class="fxf-logo-top"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span></span><span class="fxf-frt">Freight</span></span></div>
             <div class="fxfe-tag">(FXFE)</div>
           </div>
           <div class="dash-pro">
@@ -928,7 +925,7 @@
         <div class="dash-row">
           <span class="dash-star on">&#9733;</span>
           <div class="dash-carrier">
-            <div><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span><span class="fxf-dot">.</span><span class="fxf-frt">Freight</span></div>
+            <div><span class="fxf-logo-wrap"><span class="fxf-logo-top"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span></span><span class="fxf-frt">Freight</span></span></div>
             <div class="fxfe-tag">(FXFE)</div>
           </div>
           <div class="dash-pro">
@@ -949,7 +946,7 @@
         <div class="dash-row">
           <span class="dash-star on">&#9733;</span>
           <div class="dash-carrier">
-            <div><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span><span class="fxf-dot">.</span><span class="fxf-frt">Freight</span></div>
+            <div><span class="fxf-logo-wrap"><span class="fxf-logo-top"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span></span><span class="fxf-frt">Freight</span></span></div>
             <div class="fxfe-tag">(FXFE)</div>
           </div>
           <div class="dash-pro">
@@ -970,7 +967,7 @@
         <div class="dash-row">
           <span class="dash-star on">&#9733;</span>
           <div class="dash-carrier">
-            <div><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span><span class="fxf-dot">.</span><span class="fxf-frt">Freight</span></div>
+            <div><span class="fxf-logo-wrap"><span class="fxf-logo-top"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span></span><span class="fxf-frt">Freight</span></span></div>
             <div class="fxfe-tag">(FXFE)</div>
           </div>
           <div class="dash-pro">
@@ -991,7 +988,7 @@
         <div class="dash-row">
           <span class="dash-star">&#9733;</span>
           <div class="dash-carrier">
-            <div><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span><span class="fxf-dot">.</span><span class="fxf-frt">Freight</span></div>
+            <div><span class="fxf-logo-wrap"><span class="fxf-logo-top"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span></span><span class="fxf-frt">Freight</span></span></div>
             <div class="fxfe-tag">FXFE</div>
           </div>
           <div class="dash-pro">
@@ -1239,7 +1236,7 @@
                 </div>
                 <div class="ltls-svc-row">
                   <div class="ltls-carrier-col">
-                    <div class="ltls-fxf-logo"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span><span class="fxf-dot">.</span><span class="fxf-frt">Freight</span></div>
+                    <div class="ltls-fxf-logo"><span class="fxf-logo-wrap"><span class="fxf-logo-top"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span></span><span class="fxf-frt">Freight</span></span></div>
                     <div class="ltls-svc-name">FedEx Freight &#174;Priority</div>
                   </div>
                   <div class="ltls-opts">
@@ -1289,7 +1286,7 @@
                 </div>
                 <div class="ltls-svc-row">
                   <div class="ltls-carrier-col">
-                    <div class="ltls-fxf-logo"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span><span class="fxf-dot">.</span><span class="fxf-frt">Freight</span></div>
+                    <div class="ltls-fxf-logo"><span class="fxf-logo-wrap"><span class="fxf-logo-top"><span class="fxf-fed">Fed</span><span class="fxf-ex">Ex</span></span><span class="fxf-frt">Freight</span></span></div>
                     <div class="ltls-svc-name">FedEx Freight &#174;Economy</div>
                   </div>
                   <div class="ltls-opts">
