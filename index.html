@@ -355,6 +355,8 @@
   .lr-tbl .tg { color: #16a34a; font-weight: 600; }
   .lr-tbl .tr { color: #dc2626; font-weight: 700; }
   .lr-tbl .tb { font-weight: 600; color: #111827; }
+  .lr-w-sub { padding: 5px 14px 7px; font-size: 11px; color: #6b7280; border-bottom: 1px solid #f3f4f6; line-height: 1.45; background: #fafafa; }
+  .lr-col-hdr { display: flex; align-items: center; justify-content: space-between; padding: 5px 14px 4px; font-size: 10px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #f3f4f6; }
   .lr-w-foot { padding: 7px 14px; background: #f9fafb; border-top: 1px solid #f3f4f6; font-size: 11px; color: #6b7280; line-height: 1.4; flex-shrink: 0; }
   .lr-w-foot strong { color: #374151; font-weight: 600; }
   /* ===== GUEST CHECKOUT — v2 ===== */
@@ -1915,7 +1917,7 @@
       <div class="lr-insights-bar">
         <div class="lr-insight-card">
           <div class="lr-insight-val" style="color:#16a34a;">88.5%</div>
-          <div class="lr-insight-lbl">FXF win rate &mdash; strongest when priced #1</div>
+          <div class="lr-insight-lbl">FXF win rate overall &mdash; nearly 99% when FXF is the cheapest option</div>
         </div>
         <div class="lr-insight-card">
           <div class="lr-insight-val" style="color:#dc2626;">$266</div>
@@ -1939,6 +1941,7 @@
             <span class="lr-w-title">FXF Win / Loss Overview</span>
             <span class="lr-w-date"></span>
           </div>
+          <div class="lr-w-sub">How often did shippers choose FXF vs. a competitor? A "win" = the shipper booked with FXF. A "loss" = they chose someone else. Jul 2025–Jul 2026.</div>
           <div class="lr-w-icons">
             <button class="lr-w-ico on" data-view="table" title="Table"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="0.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="0.5" y="7.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="7.5" width="5" height="5" rx="0.5"/></svg></button>
             <button class="lr-w-ico" data-view="donut" title="Donut"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 0.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" fill-rule="evenodd"/><path d="M6.5 0.5v3.5a2.5 2.5 0 0 1 2.5 2.5h3.5a6 6 0 0 0-6-6z" fill="currentColor" opacity="0.35"/></svg></button>
@@ -1990,9 +1993,10 @@
         <!-- W2: Price Gap by Lane -->
         <div class="lr-widget" data-wid="2">
           <div class="lr-w-hdr">
-            <span class="lr-w-title">Price Gap by Lane <span style="font-size:10px;font-weight:400;color:#9ca3af;">(+ = FXF priced higher than winner)</span></span>
+            <span class="lr-w-title">Where Is FXF Losing on Price?</span>
             <span class="lr-w-date"></span>
           </div>
+          <div class="lr-w-sub">Lanes where FXF lost the most shipments to competitors, and how much more expensive FXF was on average (median price gap across all losses on that lane).</div>
           <div class="lr-w-icons">
             <button class="lr-w-ico on" data-view="table" title="Table"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="0.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="0.5" y="7.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="7.5" width="5" height="5" rx="0.5"/></svg></button>
             <button class="lr-w-ico" data-view="donut" title="Donut"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 0.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" fill-rule="evenodd"/><path d="M6.5 0.5v3.5a2.5 2.5 0 0 1 2.5 2.5h3.5a6 6 0 0 0-6-6z" fill="currentColor" opacity="0.35"/></svg></button>
@@ -2028,6 +2032,7 @@
         </div>
           <div class="lr-views">
             <div class="lr-view lr-view-table active">
+              <div class="lr-col-hdr"><span>Lane &amp; competitor who won</span><span>FXF was more expensive by</span></div>
               <div class="lr-rows">
                 <div class="lr-drow"><span class="lr-dlbl">IL &#8594; GA &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$266</span></div>
                 <div class="lr-drow"><span class="lr-dlbl">IL &#8594; VA &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$231</span></div>
@@ -2049,6 +2054,7 @@
             <span class="lr-w-title">Carrier Win Share vs. FXF</span>
             <span class="lr-w-date"></span>
           </div>
+          <div class="lr-w-sub">When FXF lost a shipment, which carrier won it? Counts are total losses to each competitor, Jul 2025–Jul 2026.</div>
           <div class="lr-w-icons">
             <button class="lr-w-ico on" data-view="table" title="Table"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="0.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="0.5" y="7.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="7.5" width="5" height="5" rx="0.5"/></svg></button>
             <button class="lr-w-ico" data-view="donut" title="Donut"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 0.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" fill-rule="evenodd"/><path d="M6.5 0.5v3.5a2.5 2.5 0 0 1 2.5 2.5h3.5a6 6 0 0 0-6-6z" fill="currentColor" opacity="0.35"/></svg></button>
@@ -2106,6 +2112,7 @@
             <span class="lr-w-title">Win Rate by Price Position</span>
             <span class="lr-w-date"></span>
           </div>
+          <div class="lr-w-sub">When all carriers are ranked cheapest to most expensive, how often does FXF win? "#1 Cheapest" means FXF had the lowest quoted price on that shipment.</div>
           <div class="lr-w-icons">
             <button class="lr-w-ico on" data-view="table" title="Table"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="0.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="0.5" y="7.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="7.5" width="5" height="5" rx="0.5"/></svg></button>
             <button class="lr-w-ico" data-view="donut" title="Donut"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 0.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" fill-rule="evenodd"/><path d="M6.5 0.5v3.5a2.5 2.5 0 0 1 2.5 2.5h3.5a6 6 0 0 0-6-6z" fill="currentColor" opacity="0.35"/></svg></button>
@@ -2161,9 +2168,10 @@
         <!-- W5: Transit Advantage -->
         <div class="lr-widget" data-wid="5">
           <div class="lr-w-hdr">
-            <span class="lr-w-title">Transit Advantage Analysis</span>
+            <span class="lr-w-title">FXF Speed vs. Competitor Winner</span>
             <span class="lr-w-date"></span>
           </div>
+          <div class="lr-w-sub">Lanes where FXF was faster than the competitor who won — yet FXF still lost the shipment. The "$ Gap" is how much more expensive FXF was. Speed alone didn't close the deal.</div>
           <div class="lr-w-icons">
             <button class="lr-w-ico on" data-view="table" title="Table"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="0.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="0.5" y="7.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="7.5" width="5" height="5" rx="0.5"/></svg></button>
             <button class="lr-w-ico" data-view="donut" title="Donut"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 0.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" fill-rule="evenodd"/><path d="M6.5 0.5v3.5a2.5 2.5 0 0 1 2.5 2.5h3.5a6 6 0 0 0-6-6z" fill="currentColor" opacity="0.35"/></svg></button>
@@ -2219,9 +2227,10 @@
         <!-- W6: Booking Day -->
         <div class="lr-widget" data-wid="6">
           <div class="lr-w-hdr">
-            <span class="lr-w-title">Win Rate by Booking Day</span>
+            <span class="lr-w-title">Does Booking Day Affect Win Rate?</span>
             <span class="lr-w-date"></span>
           </div>
+          <div class="lr-w-sub">FXF win rate by day of week. If day mattered, you'd see a clear pattern in the bars — you don't. Price position is the driver, not timing.</div>
           <div class="lr-w-icons">
             <button class="lr-w-ico on" data-view="table" title="Table"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="0.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="0.5" y="7.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="7.5" width="5" height="5" rx="0.5"/></svg></button>
             <button class="lr-w-ico" data-view="donut" title="Donut"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 0.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" fill-rule="evenodd"/><path d="M6.5 0.5v3.5a2.5 2.5 0 0 1 2.5 2.5h3.5a6 6 0 0 0-6-6z" fill="currentColor" opacity="0.35"/></svg></button>
@@ -2280,9 +2289,10 @@
         <!-- W7: Accessorial Cost -->
         <div class="lr-widget" data-wid="7">
           <div class="lr-w-hdr">
-            <span class="lr-w-title">Accessorial Cost Inflation</span>
+            <span class="lr-w-title">Accessorial Pricing vs. Competitors</span>
             <span class="lr-w-date"></span>
           </div>
+          <div class="lr-w-sub">FXF charges extra (itemizes) for add-ons like liftgate. Most competitors bundle these into their base rate, making FXF quotes look more expensive — even when the all-in total is similar.</div>
           <div class="lr-w-icons">
             <button class="lr-w-ico on" data-view="table" title="Table"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="0.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="0.5" y="7.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="7.5" width="5" height="5" rx="0.5"/></svg></button>
             <button class="lr-w-ico" data-view="donut" title="Donut"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 0.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" fill-rule="evenodd"/><path d="M6.5 0.5v3.5a2.5 2.5 0 0 1 2.5 2.5h3.5a6 6 0 0 0-6-6z" fill="currentColor" opacity="0.35"/></svg></button>
@@ -2338,6 +2348,7 @@
             <span class="lr-w-title">Freight Direct Performance</span>
             <span class="lr-w-date"></span>
           </div>
+          <div class="lr-w-sub">Freight Direct is FXF's premium door-to-door LTL service. It's priced higher than standard FXF — and much higher than competitors — but wins 60% of the time when offered, suggesting customers value the service level.</div>
           <div class="lr-w-icons">
             <button class="lr-w-ico on" data-view="table" title="Table"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="0.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="0.5" width="5" height="5" rx="0.5"/><rect x="0.5" y="7.5" width="5" height="5" rx="0.5"/><rect x="7.5" y="7.5" width="5" height="5" rx="0.5"/></svg></button>
             <button class="lr-w-ico" data-view="donut" title="Donut"><svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><path d="M6.5 0.5a6 6 0 1 0 0 12 6 6 0 0 0 0-12zm0 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5z" fill-rule="evenodd"/><path d="M6.5 0.5v3.5a2.5 2.5 0 0 1 2.5 2.5h3.5a6 6 0 0 0-6-6z" fill="currentColor" opacity="0.35"/></svg></button>
