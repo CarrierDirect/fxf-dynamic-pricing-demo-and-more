@@ -280,6 +280,10 @@
   .lr-topbar-title { font-size: 15px; font-weight: 700; color: #1a1a2e; }
   .lr-topbar-sub { font-size: 11px; color: #6b7280; margin-top: 2px; }
   .lr-concept-tag { background: #f0e8f8; color: #4D148C; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; flex-shrink: 0; }
+  .lr-insights-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; padding: 12px 14px; background: #fff; border-bottom: 1px solid #e5e7eb; flex-shrink: 0; }
+  .lr-insight-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 12px; }
+  .lr-insight-val { font-size: 22px; font-weight: 800; line-height: 1.1; }
+  .lr-insight-lbl { font-size: 11px; color: #6b7280; margin-top: 3px; line-height: 1.35; }
   .lr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 14px; }
   .lr-widget { background: #fff; border: 1px solid #e5e7eb; display: flex; flex-direction: column; min-width: 0; }
   .lr-w-hdr { padding: 10px 14px 8px; border-bottom: 2px solid #FF6200; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
@@ -1274,7 +1278,7 @@
                   <button class="ltls-fri-cta" onclick="switchToFriday()">See Friday pricing &#8594;</button>
                 </div>
                 <div class="ltls-fri-active" id="ltls-fri-active" style="display:none;">
-                  <span class="ltls-fri-active-txt">&#9989; Showing Friday pricing &#8212; ship date updated to <strong id="ltls-fri-active-date">Fri, Jun 6</strong></span>
+                  <span class="ltls-fri-active-txt">&#9989; Friday pricing active &mdash; you&#39;re saving <strong id="ltls-fri-saving" style="color:#15803d;">$46</strong> vs. Tuesday &nbsp;<span style="font-weight:400;color:#166534;font-size:11px;">(ship date: <strong id="ltls-fri-active-date">Fri, Jun 6</strong>)</span></span>
                   <button class="ltls-fri-revert" onclick="revertToTuesday()">Revert to Tuesday</button>
                 </div>
 
@@ -1903,7 +1907,30 @@
           <div class="lr-topbar-title">Lane Reporting Dashboard</div>
           <div class="lr-topbar-sub">107,731 shipments &bull; Jul 2025&#8211;Jul 2026 &bull; Source: ltlselect-prod (FXFE + FXNL)</div>
         </div>
-        <span class="lr-concept-tag">CONCEPT PROTOTYPE</span>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+          <span style="background:#dcfce7;color:#15803d;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.04em;">&#9679; REAL DATA</span>
+          <span class="lr-concept-tag">CONCEPT PROTOTYPE</span>
+        </div>
+      </div>
+
+      <!-- Key Insights Banner -->
+      <div class="lr-insights-bar">
+        <div class="lr-insight-card">
+          <div class="lr-insight-val" style="color:#16a34a;">88.5%</div>
+          <div class="lr-insight-lbl">FXF win rate &mdash; strongest when priced #1</div>
+        </div>
+        <div class="lr-insight-card">
+          <div class="lr-insight-val" style="color:#dc2626;">$266</div>
+          <div class="lr-insight-lbl">Max price gap vs. winner on IL&#8594;GA (FXF over competitor)</div>
+        </div>
+        <div class="lr-insight-card">
+          <div class="lr-insight-val" style="color:#1d4ed8;">R+L</div>
+          <div class="lr-insight-lbl">Top competitor &mdash; 2,836 wins, often faster + cheaper on Midwest long-haul</div>
+        </div>
+        <div class="lr-insight-card">
+          <div class="lr-insight-val" style="color:#7c3aed;">98.9%</div>
+          <div class="lr-insight-lbl">Win rate when FXF is lowest price &mdash; pricing is the lever</div>
+        </div>
       </div>
 
       <div class="lr-grid">
@@ -1959,13 +1986,13 @@
             <div class="lr-view lr-view-donut"></div>
             <div class="lr-view lr-view-bar"></div>
           </div>
-          <div class="lr-w-foot"><strong>Win rate: 88.5%</strong> &#8212; FXFE 56.4% + FXNL 32.1% &bull; Jul 2025&#8211;Jul 2026</div>
+          <div class="lr-w-foot"><strong>Win rate: 88.5%</strong> &mdash; 1.5% share loss to recover = ~1,620 shipments/yr in revenue recapture opportunity</div>
         </div>
 
         <!-- W2: Price Gap by Lane -->
         <div class="lr-widget" data-wid="2">
           <div class="lr-w-hdr">
-            <span class="lr-w-title">Price Gap by Lane</span>
+            <span class="lr-w-title">Price Gap by Lane <span style="font-size:10px;font-weight:400;color:#9ca3af;">(+ = FXF priced higher than winner)</span></span>
             <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-icons">
@@ -2015,7 +2042,7 @@
             <div class="lr-view lr-view-donut"></div>
             <div class="lr-view lr-view-bar"></div>
           </div>
-          <div class="lr-w-foot"><strong>Median gap when losing: +$65 (29.1%)</strong> &#8212; Midwest long-haul lanes hit hardest</div>
+          <div class="lr-w-foot"><strong>Median FXF overprice when losing: +$65 (29.1%)</strong> &#8212; Recommend targeted repricing on IL outbound lanes to recover volume</div>
         </div>
 
         <!-- W3: Carrier Win Share -->
@@ -2072,7 +2099,7 @@
             <div class="lr-view lr-view-donut"></div>
             <div class="lr-view lr-view-bar"></div>
           </div>
-          <div class="lr-w-foot">R+L &amp; XPO avg <strong>~1.2 days faster</strong> on lanes they win &#8212; price AND speed</div>
+          <div class="lr-w-foot">R+L takes 24.5% of losses &mdash; <strong>prioritize IL outbound repricing</strong> to defend against R+L specifically</div>
         </div>
 
         <!-- W4: Win Rate by Price Position -->
@@ -2130,7 +2157,7 @@
             <div class="lr-view lr-view-donut"></div>
             <div class="lr-view lr-view-bar"></div>
           </div>
-          <div class="lr-w-foot">Within <strong>5% of cheapest</strong>, FXF wins 56.9% &#8212; above 10% premium, win rate drops below 45%</div>
+          <div class="lr-w-foot">Dynamic pricing to stay within <strong>5% of market</strong> on key lanes could lift win rate ~11 pts &mdash; highest ROI pricing lever</div>
         </div>
 
         <!-- W5: Transit Advantage -->
@@ -2188,7 +2215,7 @@
             <div class="lr-view lr-view-donut"></div>
             <div class="lr-view lr-view-bar"></div>
           </div>
-          <div class="lr-w-foot"><strong>8.5% of losses</strong> FXF was faster but still lost &#8212; avg $214 more, 1.5 days quicker</div>
+          <div class="lr-w-foot"><strong>Speed alone doesn&#39;t close the gap:</strong> FXF was faster but still lost in 8.5% of cases &mdash; price was the deciding factor</div>
         </div>
 
         <!-- W6: Booking Day -->
@@ -3198,6 +3225,7 @@ function renderScreen4() {
     banner.style.display = 'none';
     active.style.display = 'flex';
     document.getElementById('ltls-fri-active-date').textContent = friLabel;
+    document.getElementById('ltls-fri-saving').textContent = '$' + savings.toLocaleString();
   } else if (isFriCheaper && savings > 0) {
     banner.style.display = 'flex';
     active.style.display = 'none';
