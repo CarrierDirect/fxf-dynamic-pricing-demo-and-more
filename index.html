@@ -262,6 +262,7 @@
   .ltls-fri-sub strong { color: #15803d; }
   .ltls-fri-cta { background: #16a34a; color: #fff; border: none; border-radius: 8px; padding: 7px 14px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; }
   .ltls-fri-cta:hover { background: #15803d; }
+  .ltls-save-badge { display: inline-block; background: #16a34a; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; margin-bottom: 3px; letter-spacing: 0.02em; white-space: nowrap; }
   .ltls-fri-active { margin: 6px 14px 8px; background: #dcfce7; border: 1.5px solid #4ade80; border-radius: 10px; padding: 9px 14px; display: flex; align-items: center; justify-content: space-between; }
   .ltls-fri-active-txt { font-size: 12px; font-weight: 600; color: #15803d; }
   .ltls-fri-revert { background: none; border: 1.5px solid #4ade80; color: #15803d; border-radius: 6px; padding: 4px 10px; font-size: 11px; font-weight: 600; cursor: pointer; }
@@ -1247,7 +1248,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <button class="ltls-price-pill" id="ltls-p1">US$936.00</button>
+                        <span class="ltls-save-badge" id="ltls-save-p1" style="display:none;"></span><button class="ltls-price-pill" id="ltls-p1">US$936.00</button>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -1257,7 +1258,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <button class="ltls-price-pill" id="ltls-p2">US$583.00</button>
+                        <span class="ltls-save-badge" id="ltls-save-p2" style="display:none;"></span><button class="ltls-price-pill" id="ltls-p2">US$583.00</button>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -1275,7 +1276,7 @@
                   <button class="ltls-fri-cta" onclick="switchToFriday()">See Friday pricing &#8594;</button>
                 </div>
                 <div class="ltls-fri-active" id="ltls-fri-active" style="display:none;">
-                  <span class="ltls-fri-active-txt">&#9989; Friday pricing active &mdash; you&#39;re saving <strong id="ltls-fri-saving" style="color:#15803d;">$46</strong> vs. Tuesday &nbsp;<span style="font-weight:400;color:#166534;font-size:11px;">(ship date: <strong id="ltls-fri-active-date">Fri, Jun 6</strong>)</span></span>
+                  <span class="ltls-fri-active-txt">&#9989; Friday pricing active &mdash; ship date: <strong id="ltls-fri-active-date">Fri, Jun 6</strong></span>
                   <button class="ltls-fri-revert" onclick="revertToTuesday()">Revert to Tuesday</button>
                 </div>
 
@@ -1297,7 +1298,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <button class="ltls-price-pill" id="ltls-e1">US$891.00</button>
+                        <span class="ltls-save-badge" id="ltls-save-e1" style="display:none;"></span><button class="ltls-price-pill" id="ltls-e1">US$891.00</button>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -1308,7 +1309,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <button class="ltls-price-pill" id="ltls-e2">US$754.00</button>
+                        <span class="ltls-save-badge" id="ltls-save-e2" style="display:none;"></span><button class="ltls-price-pill" id="ltls-e2">US$754.00</button>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -1318,7 +1319,7 @@
                       </div>
                       <div class="ltls-opt-price">
                         <span class="ltls-opt-type">Dynamic Rate</span>
-                        <button class="ltls-price-pill" id="ltls-e3">US$532.00</button>
+                        <span class="ltls-save-badge" id="ltls-save-e3" style="display:none;"></span><button class="ltls-price-pill" id="ltls-e3">US$532.00</button>
                       </div>
                       <span class="ltls-chevron">&#9660;</span>
                     </div>
@@ -3203,6 +3204,24 @@ function renderScreen4() {
     document.getElementById(id).classList.toggle('fri', viewingFriday);
   });
 
+  // Per-rate savings badges
+  var rateKeys = ['p1','p2','e1','e2','e3'];
+  rateKeys.forEach(function(k) {
+    var badge = document.getElementById('ltls-save-' + k);
+    if (!badge) return;
+    if (viewingFriday) {
+      var s = tuePrices[k] - friPrices[k];
+      if (s > 0) {
+        badge.textContent = 'Save $' + s.toLocaleString() + ' vs Tue';
+        badge.style.display = 'inline-block';
+      } else {
+        badge.style.display = 'none';
+      }
+    } else {
+      badge.style.display = 'none';
+    }
+  });
+
   var friDate = getNextFriday();
   var friLabel = friDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   if (viewingFriday) {
@@ -3222,7 +3241,6 @@ function renderScreen4() {
     banner.style.display = 'none';
     active.style.display = 'flex';
     document.getElementById('ltls-fri-active-date').textContent = friLabel;
-    document.getElementById('ltls-fri-saving').textContent = '$' + savings.toLocaleString();
   } else if (isFriCheaper && savings > 0) {
     banner.style.display = 'flex';
     active.style.display = 'none';
