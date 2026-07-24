@@ -283,12 +283,15 @@
   .lr-topbar-title { font-size: 15px; font-weight: 700; color: #1a1a2e; }
   .lr-topbar-sub { font-size: 11px; color: #6b7280; margin-top: 2px; }
   .lr-concept-tag { background: #f0e8f8; color: #4D148C; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; flex-shrink: 0; }
-  .lr-insights-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; padding: 16px 20px; background: #1a0f3c; border-bottom: 1px solid #0f0826; flex-shrink: 0; }
-  .lr-insight-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 12px 14px; }
-  .lr-insight-val { font-size: 26px; font-weight: 800; line-height: 1.1; }
-  .lr-insight-lbl { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 4px; line-height: 1.35; }
+  .lr-insights-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; padding: 18px 20px; background: #1a0f3c; border-bottom: 2px solid #0f0826; flex-shrink: 0; }
+  .lr-insight-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.13); border-radius: 10px; padding: 14px 16px; }
+  .lr-insight-val { font-size: 28px; font-weight: 800; line-height: 1.1; }
+  .lr-insight-lbl { font-size: 11px; color: rgba(255,255,255,0.55); margin-top: 5px; line-height: 1.4; }
   .lr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 14px; }
-  .lr-widget { background: #fff; border: 1px solid #e5e7eb; display: flex; flex-direction: column; min-width: 0; }
+  .lr-widget { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; display: flex; flex-direction: column; min-width: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+  .lr-ctrl { display: none; }
+  .lr-w-icons { display: none; }
+  .lr-w-date { display: none; }
   .lr-w-hdr { padding: 10px 14px 8px; border-bottom: 2px solid #FF6200; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
   .lr-w-title { font-size: 13px; font-weight: 700; color: #1a1a2e; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .lr-w-date { font-size: 10px; color: #9ca3af; white-space: nowrap; flex-shrink: 0; }
@@ -1939,9 +1942,15 @@
         <div class="lr-widget" data-wid="1">
           <div class="lr-w-hdr">
             <span class="lr-w-title">FXF Win / Loss Overview</span>
-            
+            <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-sub">How often did shippers choose FXF vs. a competitor? A "win" = the shipper booked with FXF. A "loss" = they chose someone else. Jul 2025–Jul 2026.</div>
+          <div class="lr-ctrl">
+            <div class="lr-met-grp">
+              <button class="lr-met on">COUNT</button>
+              <button class="lr-met">DAY AVG</button>
+              <button class="lr-met">RATE</button>
+            </div>
             <div class="lr-per-grp">
               <button class="lr-per" data-per="1d">1D</button>
               <button class="lr-per" data-per="7d">7D</button>
@@ -1951,6 +1960,27 @@
               <button class="lr-per" data-per="custom">CUSTOM</button>
             </div>
           </div>
+          <div class="lr-custom-row">
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">START DATE</span>
+            <input type="date" value="2026-04-21">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">END DATE</span>
+            <input type="date" value="2026-07-19">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <button class="lr-custom-x">&#215;</button>
+        </div>
+          <div class="lr-views">
+            <div class="lr-view lr-view-table active">
+              <div class="lr-rows">
+                <div class="lr-drow"><span class="lr-dlbl"><span class="lr-ctag c-fxf">FXF</span> Won</span><span class="lr-dval grn">95,342</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Competitor Won</span><span class="lr-dval red">11,562</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Quoted, Not Booked</span><span class="lr-dval">827</span></div>
+                <div class="lr-drow total"><span class="lr-dlbl" style="font-weight:700;color:#111827;">Total Shipments</span><span class="lr-dval big">107,731</span></div>
+              </div>
             </div>
           </div>
           <div class="lr-w-foot"><strong>Win rate: 88.5%</strong> &mdash; 11,562 shipments went to competitors last year. At ~$530/shipment, that&rsquo;s <strong>~$6.1M in revenue</strong> that left FXF. Recovering just 1.5 pts of win rate = ~$858K/yr recaptured.</div>
@@ -1960,9 +1990,15 @@
         <div class="lr-widget" data-wid="2">
           <div class="lr-w-hdr">
             <span class="lr-w-title">Where Is FXF Losing on Price?</span>
-            
+            <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-sub">Lanes where FXF lost the most shipments to competitors, and how much more expensive FXF was on average (median price gap across all losses on that lane).</div>
+          <div class="lr-ctrl">
+            <div class="lr-met-grp">
+              <button class="lr-met on">$ GAP</button>
+              <button class="lr-met">% GAP</button>
+              <button class="lr-met">RANK</button>
+            </div>
             <div class="lr-per-grp">
               <button class="lr-per" data-per="1d">1D</button>
               <button class="lr-per" data-per="7d">7D</button>
@@ -1972,6 +2008,30 @@
               <button class="lr-per" data-per="custom">CUSTOM</button>
             </div>
           </div>
+          <div class="lr-custom-row">
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">START DATE</span>
+            <input type="date" value="2026-04-21">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">END DATE</span>
+            <input type="date" value="2026-07-19">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <button class="lr-custom-x">&#215;</button>
+        </div>
+          <div class="lr-views">
+            <div class="lr-view lr-view-table active">
+              <div class="lr-col-hdr"><span>Lane &amp; competitor who won</span><span>FXF was more expensive by</span></div>
+              <div class="lr-rows">
+                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; GA &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$266</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; VA &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$231</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; CA &nbsp;<span class="lr-ctag c-xpo">XPO</span></span><span class="lr-dval red">+$218</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; TX &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$183</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; FL &nbsp;<span class="lr-ctag c-est">Estes</span></span><span class="lr-dval red">+$188</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">OH &#8594; TX &nbsp;<span class="lr-ctag c-xpo">XPO</span></span><span class="lr-dval amb">+$152</span></div>
+              </div>
             </div>
           </div>
           <div class="lr-w-foot"><strong>Median FXF overprice when losing: +$65 (29.1%)</strong> &#8212; Recommend targeted repricing on IL outbound lanes to recover volume</div>
@@ -1981,9 +2041,15 @@
         <div class="lr-widget" data-wid="3">
           <div class="lr-w-hdr">
             <span class="lr-w-title">Carrier Win Share vs. FXF</span>
-            
+            <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-sub">When FXF lost a shipment, which carrier won it? Counts are total losses to each competitor, Jul 2025–Jul 2026.</div>
+          <div class="lr-ctrl">
+            <div class="lr-met-grp">
+              <button class="lr-met on">COUNT</button>
+              <button class="lr-met">% SHARE</button>
+              <button class="lr-met">AVG GAP</button>
+            </div>
             <div class="lr-per-grp">
               <button class="lr-per" data-per="1d">1D</button>
               <button class="lr-per" data-per="7d">7D</button>
@@ -1993,6 +2059,30 @@
               <button class="lr-per" data-per="custom">CUSTOM</button>
             </div>
           </div>
+          <div class="lr-custom-row">
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">START DATE</span>
+            <input type="date" value="2026-04-21">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">END DATE</span>
+            <input type="date" value="2026-07-19">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <button class="lr-custom-x">&#215;</button>
+        </div>
+          <div class="lr-views">
+            <div class="lr-view lr-view-table active">
+              <div class="lr-rows">
+                <div class="lr-drow"><span class="lr-dlbl"><span class="lr-ctag c-oth">R+L</span>&nbsp; R+L Carriers</span><span class="lr-dval">2,836</span></div>
+                <div class="lr-drow"><span class="lr-dlbl"><span class="lr-ctag c-xpo">XPO</span>&nbsp; XPO Logistics</span><span class="lr-dval">2,314</span></div>
+                <div class="lr-drow"><span class="lr-dlbl"><span class="lr-ctag c-od">Saia</span>&nbsp; Saia LTL Freight</span><span class="lr-dval">1,349</span></div>
+                <div class="lr-drow"><span class="lr-dlbl"><span class="lr-ctag c-est">Est</span>&nbsp; Estes Express</span><span class="lr-dval">1,137</span></div>
+                <div class="lr-drow"><span class="lr-dlbl"><span class="lr-ctag c-oth">SE</span>&nbsp; Southeastern Freight</span><span class="lr-dval">657</span></div>
+                <div class="lr-drow"><span class="lr-dlbl"><span class="lr-ctag c-oth">Oth</span>&nbsp; Other carriers</span><span class="lr-dval">3,269</span></div>
+                <div class="lr-drow total"><span class="lr-dlbl" style="font-weight:700;color:#111827;">Total FXF Losses</span><span class="lr-dval big">11,562</span></div>
+              </div>
             </div>
           </div>
           <div class="lr-w-foot">R+L (~$1.5M), XPO (~$1.2M), Saia (~$715K), Estes (~$603K) &mdash; top 4 competitors account for <strong>~$4M</strong> of the $6.1M lost. Prioritize IL outbound repricing first.</div>
@@ -2002,9 +2092,15 @@
         <div class="lr-widget" data-wid="4">
           <div class="lr-w-hdr">
             <span class="lr-w-title">Does Being Cheaper = Winning More?</span>
-            
+            <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-sub">Yes. When FXF is the lowest-priced option on a shipment, it wins 98.9% of the time. The more expensive FXF is relative to competitors, the more shipments it loses.</div>
+          <div class="lr-ctrl">
+            <div class="lr-met-grp">
+              <button class="lr-met on">WIN RATE</button>
+              <button class="lr-met">COUNT</button>
+              <button class="lr-met">TREND</button>
+            </div>
             <div class="lr-per-grp">
               <button class="lr-per" data-per="1d">1D</button>
               <button class="lr-per" data-per="7d">7D</button>
@@ -2014,6 +2110,33 @@
               <button class="lr-per" data-per="custom">CUSTOM</button>
             </div>
           </div>
+          <div class="lr-custom-row">
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">START DATE</span>
+            <input type="date" value="2026-04-21">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">END DATE</span>
+            <input type="date" value="2026-07-19">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <button class="lr-custom-x">&#215;</button>
+        </div>
+          <div class="lr-views">
+            <div class="lr-view lr-view-table active">
+              <div style="padding:6px 14px 2px;font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;">FXF win rate by price rank</div>
+              <div class="lr-wr-row"><span class="lr-wr-lbl">FXF is cheapest</span><div class="lr-wr-track"><div class="lr-wr-fill" style="width:98.9%;background:#16a34a;"></div></div><span class="lr-wr-pct" style="color:#16a34a;">98.9%</span></div>
+              <div class="lr-wr-row"><span class="lr-wr-lbl">2nd cheapest</span><div class="lr-wr-track"><div class="lr-wr-fill" style="width:48.5%;background:#d97706;"></div></div><span class="lr-wr-pct" style="color:#d97706;">48.5%</span></div>
+              <div class="lr-wr-row"><span class="lr-wr-lbl">3rd cheapest</span><div class="lr-wr-track"><div class="lr-wr-fill" style="width:28.4%;background:#dc2626;"></div></div><span class="lr-wr-pct" style="color:#dc2626;">28.4%</span></div>
+              <div class="lr-wr-row"><span class="lr-wr-lbl">4th or more</span><div class="lr-wr-track"><div class="lr-wr-fill" style="width:15.1%;background:#dc2626;"></div></div><span class="lr-wr-pct" style="color:#dc2626;">15.1%</span></div>
+              <div style="padding:8px 14px 2px;font-size:10px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:0.05em;border-top:1px solid #f3f4f6;margin-top:4px;">When FXF is NOT cheapest — win rate by how much pricier it is</div>
+              <div class="lr-prem-grid">
+                <div class="lr-prem-cell"><div class="lr-prem-val" style="color:#065f46;">56.9%</div><div class="lr-prem-lbl">Up to 5% more expensive</div></div>
+                <div class="lr-prem-cell"><div class="lr-prem-val" style="color:#92400e;">47.0%</div><div class="lr-prem-lbl">5–10% more expensive</div></div>
+                <div class="lr-prem-cell" style="background:#fee2e2;"><div class="lr-prem-val" style="color:#991b1b;">41.4%</div><div class="lr-prem-lbl">10–20% more expensive</div></div>
+                <div class="lr-prem-cell" style="background:#fee2e2;"><div class="lr-prem-val" style="color:#991b1b;">24.6%</div><div class="lr-prem-lbl">20%+ more expensive</div></div>
+              </div>
             </div>
           </div>
           <div class="lr-w-foot">FXF wins 57% of shipments even when slightly more expensive (0–5%) — but only 25% when 20%+ over market. <strong>Closing that gap on key lanes = ~$6.3M in recoverable revenue.</strong></div>
@@ -2023,9 +2146,15 @@
         <div class="lr-widget" data-wid="5">
           <div class="lr-w-hdr">
             <span class="lr-w-title">FXF Speed vs. Competitor Winner</span>
-            
+            <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-sub">Lanes where FXF was faster than the competitor who won — yet FXF still lost the shipment. The "$ Gap" is how much more expensive FXF was. Speed alone didn't close the deal.</div>
+          <div class="lr-ctrl">
+            <div class="lr-met-grp">
+              <button class="lr-met on">TRANSIT</button>
+              <button class="lr-met">PRICE</button>
+              <button class="lr-met">BOTH</button>
+            </div>
             <div class="lr-per-grp">
               <button class="lr-per" data-per="1d">1D</button>
               <button class="lr-per" data-per="7d">7D</button>
@@ -2033,6 +2162,33 @@
               <button class="lr-per on" data-per="3m">3M</button>
               <button class="lr-per" data-per="1y">1Y</button>
               <button class="lr-per" data-per="custom">CUSTOM</button>
+            </div>
+          </div>
+          <div class="lr-custom-row">
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">START DATE</span>
+            <input type="date" value="2026-04-21">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">END DATE</span>
+            <input type="date" value="2026-07-19">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <button class="lr-custom-x">&#215;</button>
+        </div>
+          <div class="lr-views">
+            <div class="lr-view lr-view-table active">
+              <table class="lr-tbl">
+                <thead><tr><th>Lane</th><th>FXF</th><th>Comp</th><th>$ Gap</th><th>Winner</th></tr></thead>
+                <tbody>
+                  <tr><td class="tb">IL &#8594; TX</td><td class="tg">2.0d</td><td style="color:#9ca3af;">3.1d</td><td class="tr">&#8722;$333</td><td><span class="lr-ctag c-oth">R+L</span></td></tr>
+                  <tr><td class="tb">IL &#8594; FL</td><td class="tg">2.2d</td><td style="color:#9ca3af;">3.3d</td><td class="tr">&#8722;$303</td><td><span class="lr-ctag c-est">Estes</span></td></tr>
+                  <tr><td class="tb">AZ &#8594; WI</td><td class="tg">2.5d</td><td style="color:#9ca3af;">3.5d</td><td class="tr">&#8722;$79</td><td><span class="lr-ctag c-xpo">XPO</span></td></tr>
+                  <tr><td class="tb">FL &#8594; WI</td><td class="tg">2.5d</td><td style="color:#9ca3af;">3.5d</td><td class="tr">&#8722;$180</td><td><span class="lr-ctag c-oth">R+L</span></td></tr>
+                  <tr><td class="tb">WA &#8594; OH</td><td class="tg">3.0d</td><td style="color:#9ca3af;">4.5d</td><td class="tr">&#8722;$111</td><td><span class="lr-ctag c-xpo">XPO</span></td></tr>
+                </tbody>
+              </table>
             </div>
           </div>
           <div class="lr-w-foot"><strong>Speed alone doesn&#39;t close the gap:</strong> FXF was faster but still lost in 8.5% of cases &mdash; price was the deciding factor</div>
@@ -2042,9 +2198,15 @@
         <div class="lr-widget" data-wid="6">
           <div class="lr-w-hdr">
             <span class="lr-w-title">Does Booking Day Affect Win Rate?</span>
-            
+            <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-sub">FXF win rate by day of week. If day mattered, you'd see a clear pattern in the bars — you don't. Price position is the driver, not timing.</div>
+          <div class="lr-ctrl">
+            <div class="lr-met-grp">
+              <button class="lr-met on">WIN RATE</button>
+              <button class="lr-met">COUNT</button>
+              <button class="lr-met">TREND</button>
+            </div>
             <div class="lr-per-grp">
               <button class="lr-per" data-per="1d">1D</button>
               <button class="lr-per" data-per="7d">7D</button>
@@ -2054,6 +2216,28 @@
               <button class="lr-per" data-per="custom">CUSTOM</button>
             </div>
           </div>
+          <div class="lr-custom-row">
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">START DATE</span>
+            <input type="date" value="2026-04-21">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">END DATE</span>
+            <input type="date" value="2026-07-19">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <button class="lr-custom-x">&#215;</button>
+        </div>
+          <div class="lr-views">
+            <div class="lr-view lr-view-table active">
+              <div class="lr-day-wrap">
+                <div class="lr-day-col"><div class="lr-day-pct">87.5%</div><div class="lr-day-bar" style="height:56px;background:#4D148C;"></div><div class="lr-day-lbl">Mon</div></div>
+                <div class="lr-day-col"><div class="lr-day-pct">88.0%</div><div class="lr-day-bar" style="height:56px;background:#4D148C;"></div><div class="lr-day-lbl">Tue</div></div>
+                <div class="lr-day-col"><div class="lr-day-pct">88.3%</div><div class="lr-day-bar" style="height:57px;background:#4D148C;"></div><div class="lr-day-lbl">Wed</div></div>
+                <div class="lr-day-col"><div class="lr-day-pct">87.1%</div><div class="lr-day-bar" style="height:56px;background:#4D148C;"></div><div class="lr-day-lbl">Thu</div></div>
+                <div class="lr-day-col"><div class="lr-day-pct">87.9%</div><div class="lr-day-bar" style="height:56px;background:#4D148C;"></div><div class="lr-day-lbl">Fri</div></div>
+              </div>
               <div class="lr-day-line" style="margin-top:0;"></div>
               <div class="lr-rows">
                 <div class="lr-drow"><span class="lr-dlbl">Mon&#8211;Fri avg win rate</span><span class="lr-dval grn">87.8%</span></div>
@@ -2069,9 +2253,15 @@
         <div class="lr-widget" data-wid="7">
           <div class="lr-w-hdr">
             <span class="lr-w-title">Accessorial Pricing vs. Competitors</span>
-            
+            <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-sub">FXF charges extra (itemizes) for add-ons like liftgate. Most competitors bundle these into their base rate, making FXF quotes look more expensive — even when the all-in total is similar.</div>
+          <div class="lr-ctrl">
+            <div class="lr-met-grp">
+              <button class="lr-met on">$ UPLIFT</button>
+              <button class="lr-met">VS COMP</button>
+              <button class="lr-met">IMPACT</button>
+            </div>
             <div class="lr-per-grp">
               <button class="lr-per" data-per="1d">1D</button>
               <button class="lr-per" data-per="7d">7D</button>
@@ -2081,6 +2271,28 @@
               <button class="lr-per" data-per="custom">CUSTOM</button>
             </div>
           </div>
+          <div class="lr-custom-row">
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">START DATE</span>
+            <input type="date" value="2026-04-21">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">END DATE</span>
+            <input type="date" value="2026-07-19">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <button class="lr-custom-x">&#215;</button>
+        </div>
+          <div class="lr-views">
+            <div class="lr-view lr-view-table active">
+              <div class="lr-rows">
+                <div class="lr-drow"><span class="lr-dlbl">Liftgate (FXF itemized)</span><span class="lr-dval red">+$33 avg <span style="font-size:10px;color:#9ca3af;font-weight:400;">comp: $0 (bundled)</span></span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Residential (FXF itemized)</span><span class="lr-dval red">+$14 avg <span style="font-size:10px;color:#9ca3af;font-weight:400;">comp: $0 (bundled)</span></span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Liftgate shipments in sample</span><span class="lr-dval">2,933</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Residential shipments in sample</span><span class="lr-dval">2,106</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Competitors itemizing liftgate</span><span class="lr-dval grn">0%</span></div>
+              </div>
             </div>
           </div>
           <div class="lr-w-foot">Liftgate alone affects 2,933 shipments/yr &mdash; that&rsquo;s ~$97K in perceived cost inflation vs. competitors who bundle it. Bundling accessorials could immediately improve quote competitiveness.</div>
@@ -2090,9 +2302,15 @@
         <div class="lr-widget" data-wid="8">
           <div class="lr-w-hdr">
             <span class="lr-w-title">Freight Direct Performance</span>
-            
+            <span class="lr-w-date"></span>
           </div>
           <div class="lr-w-sub">Freight Direct is FXF's premium door-to-door LTL service. It's priced higher than standard FXF — and much higher than competitors — but wins 60% of the time when offered, suggesting customers value the service level.</div>
+          <div class="lr-ctrl">
+            <div class="lr-met-grp">
+              <button class="lr-met on">WIN RATE</button>
+              <button class="lr-met">COUNT</button>
+              <button class="lr-met">PRICE</button>
+            </div>
             <div class="lr-per-grp">
               <button class="lr-per" data-per="1d">1D</button>
               <button class="lr-per" data-per="7d">7D</button>
@@ -2102,6 +2320,28 @@
               <button class="lr-per" data-per="custom">CUSTOM</button>
             </div>
           </div>
+          <div class="lr-custom-row">
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">START DATE</span>
+            <input type="date" value="2026-04-21">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <div class="lr-date-field">
+            <span class="lr-date-lbl">END DATE</span>
+            <input type="date" value="2026-07-19">
+            <span class="lr-date-ico">&#128197;</span>
+          </div>
+          <button class="lr-custom-x">&#215;</button>
+        </div>
+          <div class="lr-views">
+            <div class="lr-view lr-view-table active">
+              <div class="lr-rows">
+                <div class="lr-drow"><span class="lr-dlbl">Quoted on</span><span class="lr-dval">30.7% of shipments</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Won on</span><span class="lr-dval">20.9% of shipments</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Win rate when quoted</span><span class="lr-dval grn">60.1%</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Cheaper than cheapest competitor</span><span class="lr-dval red">22.6% of the time</span></div>
+                <div class="lr-drow"><span class="lr-dlbl">Median Freight Direct price</span><span class="lr-dval red">$395 <span style="font-size:10px;color:#9ca3af;font-weight:400;">vs $279 comp</span></span></div>
+              </div>
             </div>
           </div>
           <div class="lr-w-foot">Wins 60% when offered &#8212; not on price ($395 vs $279 comp) but on <strong>capability &amp; service</strong></div>
