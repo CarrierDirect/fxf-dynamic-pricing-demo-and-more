@@ -411,20 +411,16 @@
   .gc-form-field input::placeholder { color: #ccc; }
   .gc-form-email { margin-bottom: 22px; }
   .gc-form-email input { width: 100%; }
-  .gc-day-picker { margin-bottom: 16px; }
-  .gc-day-picker-lbl { font-size: 11px; color: #6b7280; font-weight: 600; margin-bottom: 8px; }
-  .gc-day-cols { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; }
-  .gc-day-cell { border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 10px 6px 8px; text-align: center; cursor: pointer; transition: all 0.15s; background: #fff; }
-  .gc-day-cell:hover { border-color: #7c3aed; background: #faf5ff; }
-  .gc-day-cell.gc-day-selected { border-color: #4D148C; background: #f0e8f8; }
-  .gc-day-cell.gc-day-best { border-color: #16a34a; }
-  .gc-day-cell.gc-day-best.gc-day-selected { background: #f0fdf4; }
-  .gc-day-name { font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
-  .gc-day-date { font-size: 10px; color: #9ca3af; margin: 2px 0 6px; }
-  .gc-day-price { font-size: 13px; font-weight: 800; color: #111827; }
-  .gc-day-cell.gc-day-best .gc-day-price { color: #16a34a; }
-  .gc-day-cell.gc-day-high .gc-day-price { color: #dc2626; }
-  .gc-day-badge { font-size: 9px; font-weight: 700; background: #16a34a; color: #fff; border-radius: 4px; padding: 1px 5px; margin-top: 4px; display: inline-block; }
+  .gc-fri-banner { display: flex; align-items: center; gap: 12px; background: #fefce8; border: 1.5px solid #fde047; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; }
+  .gc-fri-ico { font-size: 20px; flex-shrink: 0; }
+  .gc-fri-txt { flex: 1; min-width: 0; }
+  .gc-fri-title { font-size: 13px; font-weight: 600; color: #713f12; }
+  .gc-fri-sub { font-size: 11px; color: #92400e; margin-top: 2px; }
+  .gc-fri-cta { background: #4D148C; color: #fff; border: none; border-radius: 6px; padding: 8px 14px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; flex-shrink: 0; }
+  .gc-fri-cta:hover { background: #3b0f6e; }
+  .gc-fri-active { display: flex; align-items: center; justify-content: space-between; background: #dcfce7; border: 1.5px solid #4ade80; border-radius: 10px; padding: 10px 16px; margin-bottom: 14px; }
+  .gc-fri-active-txt { font-size: 12px; font-weight: 600; color: #15803d; }
+  .gc-fri-revert { background: none; border: 1.5px solid #15803d; color: #15803d; border-radius: 6px; padding: 5px 12px; font-size: 11px; font-weight: 700; cursor: pointer; font-family: inherit; flex-shrink: 0; }
   .gc-form-actions { display: flex; align-items: center; gap: 12px; }
   .gc-tos-note { flex: 1; font-size: 11px; color: #aaa; line-height: 1.4; }
   .gc-tos-note a { color: #4D148C; text-decoration: none; }
@@ -1852,10 +1848,18 @@
             Showing rates for <strong id="gc-rate-route">Beverly Hills, CA &rarr; Stock Yards, IL</strong> &nbsp;&middot;&nbsp; <span id="gc-rate-dateshow">Jul 21, 2026</span>
           </div>
 
-          <!-- Day-of-week rate picker -->
-          <div class="gc-day-picker" id="gc-day-picker">
-            <div class="gc-day-picker-lbl">&#9889; Rates vary by pickup day &mdash; select a day to see how pricing changes</div>
-            <div class="gc-day-cols" id="gc-day-cols"></div>
+          <!-- Friday savings banner -->
+          <div class="gc-fri-banner" id="gc-fri-banner">
+            <span class="gc-fri-ico">&#128161;</span>
+            <div class="gc-fri-txt">
+              <div class="gc-fri-title">This lane is less busy on Fridays &mdash; you could save <strong>$305</strong></div>
+              <div class="gc-fri-sub">Demand drops later in the week. Shift your pickup to Friday for a lower rate on every option.</div>
+            </div>
+            <button class="gc-fri-cta" onclick="gcShowFriRates()">See Friday rates &#8594;</button>
+          </div>
+          <div class="gc-fri-active" id="gc-fri-active" style="display:none;">
+            <span class="gc-fri-active-txt">&#9989; Friday pricing active &mdash; you&rsquo;re saving <strong>$305</strong> vs. your original date</span>
+            <button class="gc-fri-revert" onclick="gcRevertRates()">Revert</button>
           </div>
 
           <!-- Rate 1: FXF Priority -->
@@ -3308,52 +3312,20 @@ window.mnScrollPricing = function(e, tier) {
     gcCheck();
   };
 
-  // Day-of-week rate picker
-  var gcDayPrices = { 1: 2180, 2: 2364, 3: 2290, 4: 2200, 5: 2059 }; // Mon–Fri, Fri = cheapest
-  function gcRenderDayPicker() {
-    var cols = document.getElementById('gc-day-cols');
-    if (!cols) return;
-    var today = new Date();
-    var dow = today.getDay(); // 0=Sun
-    // Find next Monday
-    var daysToMon = (dow === 0) ? 1 : (8 - dow) % 7 || 7;
-    var mon = new Date(today); mon.setDate(today.getDate() + daysToMon);
-    var days = ['Mon','Tue','Wed','Thu','Fri'];
-    var minPrice = Math.min.apply(null, Object.values(gcDayPrices));
-    var maxPrice = Math.max.apply(null, Object.values(gcDayPrices));
-    cols.innerHTML = '';
-    for (var i = 0; i < 5; i++) {
-      var d = new Date(mon); d.setDate(mon.getDate() + i);
-      var dayNum = i + 1; // 1=Mon...5=Fri
-      var price = gcDayPrices[dayNum];
-      var isBest = price === minPrice;
-      var isHigh = price === maxPrice;
-      var dateStr = d.toISOString().split('T')[0];
-      var label = (d.getMonth()+1) + '/' + d.getDate();
-      var cls = 'gc-day-cell' + (isBest ? ' gc-day-best' : '') + (isHigh ? ' gc-day-high' : '');
-      cols.innerHTML += '<div class="' + cls + '" data-date="' + dateStr + '" data-price="' + price + '" onclick="gcPickDay(this)">' +
-        '<div class="gc-day-name">' + days[i] + '</div>' +
-        '<div class="gc-day-date">' + label + '</div>' +
-        '<div class="gc-day-price">$' + price.toLocaleString() + '</div>' +
-        (isBest ? '<div class="gc-day-badge">Best rate</div>' : '') +
-        '</div>';
-    }
-  }
-  window.gcPickDay = function(el) {
-    document.querySelectorAll('.gc-day-cell').forEach(function(c){ c.classList.remove('gc-day-selected'); });
-    el.classList.add('gc-day-selected');
-    var sd = document.getElementById('gc-shipdate2');
-    if (sd) sd.value = el.dataset.date;
-    // Update the rates header date
+  window.gcShowFriRates = function() {
+    document.getElementById('gc-fri-banner').style.display = 'none';
+    document.getElementById('gc-fri-active').style.display = 'flex';
+    // Update rates header date to next Friday
+    var d = new Date(); var day = d.getDay();
+    var diff = (5 - day + 7) % 7 || 7; d.setDate(d.getDate() + diff);
     var dateShow = document.getElementById('gc-rate-dateshow');
-    if (dateShow && el.dataset.date) {
-      var d = new Date(el.dataset.date + 'T00:00:00');
-      dateShow.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    }
-    // Update the "best rate" nudge messaging
-    var isBest = el.classList.contains('gc-day-best');
-    var nudge = document.getElementById('gc-day-nudge');
-    if (nudge) nudge.style.display = isBest ? 'block' : 'none';
+    if (dateShow) dateShow.textContent = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric' });
+  };
+  window.gcRevertRates = function() {
+    document.getElementById('gc-fri-banner').style.display = 'flex';
+    document.getElementById('gc-fri-active').style.display = 'none';
+    var dateShow = document.getElementById('gc-rate-dateshow');
+    if (dateShow) dateShow.textContent = 'Jul 21, 2026';
   };
 
   window.gcPrefillShipment = function() {
@@ -3386,7 +3358,6 @@ window.mnScrollPricing = function(e, tier) {
       num.textContent = i < n ? '✓' : i;
       if(lbl) lbl.className = 'gc-jlbl' + (i <= n ? (i === n ? ' active' : ' done') : '');
     });
-    if (n === 3) gcRenderDayPicker();
     // Scroll content to top
     var gc = document.querySelector('.gc-content');
     if(gc) gc.scrollTop = 0;
