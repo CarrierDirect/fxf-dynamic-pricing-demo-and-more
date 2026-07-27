@@ -1781,12 +1781,6 @@
               </div>
             </div>
 
-            <!-- Day-of-week rate picker -->
-            <div class="gc-day-picker" id="gc-day-picker">
-              <div class="gc-day-picker-lbl">&#9889; Rates vary by day &mdash; tap a day to compare</div>
-              <div class="gc-day-cols" id="gc-day-cols"></div>
-            </div>
-
             <div class="gc-route-row">
               <div class="gc-route-col">
                 <div class="gc-route-col-hdr">&#128205; Origin</div>
@@ -1856,6 +1850,12 @@
           <button class="gc-panel-back" onclick="gcSetStep(2)">&#8592; Back to Shipment</button>
           <div class="gc-rates-header">
             Showing rates for <strong id="gc-rate-route">Beverly Hills, CA &rarr; Stock Yards, IL</strong> &nbsp;&middot;&nbsp; <span id="gc-rate-dateshow">Jul 21, 2026</span>
+          </div>
+
+          <!-- Day-of-week rate picker -->
+          <div class="gc-day-picker" id="gc-day-picker">
+            <div class="gc-day-picker-lbl">&#9889; Rates vary by pickup day &mdash; select a day to see how pricing changes</div>
+            <div class="gc-day-cols" id="gc-day-cols"></div>
           </div>
 
           <!-- Rate 1: FXF Priority -->
@@ -3344,13 +3344,22 @@ window.mnScrollPricing = function(e, tier) {
     el.classList.add('gc-day-selected');
     var sd = document.getElementById('gc-shipdate2');
     if (sd) sd.value = el.dataset.date;
+    // Update the rates header date
+    var dateShow = document.getElementById('gc-rate-dateshow');
+    if (dateShow && el.dataset.date) {
+      var d = new Date(el.dataset.date + 'T00:00:00');
+      dateShow.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    // Update the "best rate" nudge messaging
+    var isBest = el.classList.contains('gc-day-best');
+    var nudge = document.getElementById('gc-day-nudge');
+    if (nudge) nudge.style.display = isBest ? 'block' : 'none';
   };
 
   window.gcPrefillShipment = function() {
     var d = new Date(); d.setDate(d.getDate()+1);
     var dateStr = d.toISOString().split('T')[0];
     var sd = document.getElementById('gc-shipdate2'); if(sd) sd.value = dateStr;
-    gcRenderDayPicker();
     var f = {'gc-orig-company':'LTL Select Demo LLC','gc-orig-zip':'90210','gc-orig-city':'Beverly Hills, CA',
              'gc-dest-company':'Another Test','gc-dest-zip':'60609','gc-dest-city':'Stock Yards, IL',
              'gc-freight-desc':'Test','gc-freight-wt':'1000','gc-freight-class':'65','gc-freight-pallets':'1'};
@@ -3377,7 +3386,7 @@ window.mnScrollPricing = function(e, tier) {
       num.textContent = i < n ? '✓' : i;
       if(lbl) lbl.className = 'gc-jlbl' + (i <= n ? (i === n ? ' active' : ' done') : '');
     });
-    if (n === 2) gcRenderDayPicker();
+    if (n === 3) gcRenderDayPicker();
     // Scroll content to top
     var gc = document.querySelector('.gc-content');
     if(gc) gc.scrollTop = 0;
