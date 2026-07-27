@@ -411,6 +411,20 @@
   .gc-form-field input::placeholder { color: #ccc; }
   .gc-form-email { margin-bottom: 22px; }
   .gc-form-email input { width: 100%; }
+  .gc-day-picker { margin-bottom: 16px; }
+  .gc-day-picker-lbl { font-size: 11px; color: #6b7280; font-weight: 600; margin-bottom: 8px; }
+  .gc-day-cols { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; }
+  .gc-day-cell { border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 10px 6px 8px; text-align: center; cursor: pointer; transition: all 0.15s; background: #fff; }
+  .gc-day-cell:hover { border-color: #7c3aed; background: #faf5ff; }
+  .gc-day-cell.gc-day-selected { border-color: #4D148C; background: #f0e8f8; }
+  .gc-day-cell.gc-day-best { border-color: #16a34a; }
+  .gc-day-cell.gc-day-best.gc-day-selected { background: #f0fdf4; }
+  .gc-day-name { font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; }
+  .gc-day-date { font-size: 10px; color: #9ca3af; margin: 2px 0 6px; }
+  .gc-day-price { font-size: 13px; font-weight: 800; color: #111827; }
+  .gc-day-cell.gc-day-best .gc-day-price { color: #16a34a; }
+  .gc-day-cell.gc-day-high .gc-day-price { color: #dc2626; }
+  .gc-day-badge { font-size: 9px; font-weight: 700; background: #16a34a; color: #fff; border-radius: 4px; padding: 1px 5px; margin-top: 4px; display: inline-block; }
   .gc-form-actions { display: flex; align-items: center; gap: 12px; }
   .gc-tos-note { flex: 1; font-size: 11px; color: #aaa; line-height: 1.4; }
   .gc-tos-note a { color: #4D148C; text-decoration: none; }
@@ -1756,7 +1770,7 @@
               <button class="gc-prefill-btn" onclick="gcPrefillShipment()">&#9889; Fill Demo Data</button>
             </div>
 
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:8px;">
               <div class="gc-form-field">
                 <label>Ship Date *</label>
                 <input type="date" id="gc-shipdate2">
@@ -1765,6 +1779,12 @@
                 <label>PO / Reference # <span style="color:#aaa;font-weight:400;">(optional)</span></label>
                 <input type="text" id="gc-ref" placeholder="e.g. PO-10482">
               </div>
+            </div>
+
+            <!-- Day-of-week rate picker -->
+            <div class="gc-day-picker" id="gc-day-picker">
+              <div class="gc-day-picker-lbl">&#9889; Rates vary by day &mdash; tap a day to compare</div>
+              <div class="gc-day-cols" id="gc-day-cols"></div>
             </div>
 
             <div class="gc-route-row">
@@ -3288,10 +3308,49 @@ window.mnScrollPricing = function(e, tier) {
     gcCheck();
   };
 
+  // Day-of-week rate picker
+  var gcDayPrices = { 1: 2180, 2: 2364, 3: 2290, 4: 2200, 5: 2059 }; // Mon–Fri, Fri = cheapest
+  function gcRenderDayPicker() {
+    var cols = document.getElementById('gc-day-cols');
+    if (!cols) return;
+    var today = new Date();
+    var dow = today.getDay(); // 0=Sun
+    // Find next Monday
+    var daysToMon = (dow === 0) ? 1 : (8 - dow) % 7 || 7;
+    var mon = new Date(today); mon.setDate(today.getDate() + daysToMon);
+    var days = ['Mon','Tue','Wed','Thu','Fri'];
+    var minPrice = Math.min.apply(null, Object.values(gcDayPrices));
+    var maxPrice = Math.max.apply(null, Object.values(gcDayPrices));
+    cols.innerHTML = '';
+    for (var i = 0; i < 5; i++) {
+      var d = new Date(mon); d.setDate(mon.getDate() + i);
+      var dayNum = i + 1; // 1=Mon...5=Fri
+      var price = gcDayPrices[dayNum];
+      var isBest = price === minPrice;
+      var isHigh = price === maxPrice;
+      var dateStr = d.toISOString().split('T')[0];
+      var label = (d.getMonth()+1) + '/' + d.getDate();
+      var cls = 'gc-day-cell' + (isBest ? ' gc-day-best' : '') + (isHigh ? ' gc-day-high' : '');
+      cols.innerHTML += '<div class="' + cls + '" data-date="' + dateStr + '" data-price="' + price + '" onclick="gcPickDay(this)">' +
+        '<div class="gc-day-name">' + days[i] + '</div>' +
+        '<div class="gc-day-date">' + label + '</div>' +
+        '<div class="gc-day-price">$' + price.toLocaleString() + '</div>' +
+        (isBest ? '<div class="gc-day-badge">Best rate</div>' : '') +
+        '</div>';
+    }
+  }
+  window.gcPickDay = function(el) {
+    document.querySelectorAll('.gc-day-cell').forEach(function(c){ c.classList.remove('gc-day-selected'); });
+    el.classList.add('gc-day-selected');
+    var sd = document.getElementById('gc-shipdate2');
+    if (sd) sd.value = el.dataset.date;
+  };
+
   window.gcPrefillShipment = function() {
     var d = new Date(); d.setDate(d.getDate()+1);
     var dateStr = d.toISOString().split('T')[0];
     var sd = document.getElementById('gc-shipdate2'); if(sd) sd.value = dateStr;
+    gcRenderDayPicker();
     var f = {'gc-orig-company':'LTL Select Demo LLC','gc-orig-zip':'90210','gc-orig-city':'Beverly Hills, CA',
              'gc-dest-company':'Another Test','gc-dest-zip':'60609','gc-dest-city':'Stock Yards, IL',
              'gc-freight-desc':'Test','gc-freight-wt':'1000','gc-freight-class':'65','gc-freight-pallets':'1'};
@@ -3318,6 +3377,7 @@ window.mnScrollPricing = function(e, tier) {
       num.textContent = i < n ? '✓' : i;
       if(lbl) lbl.className = 'gc-jlbl' + (i <= n ? (i === n ? ' active' : ' done') : '');
     });
+    if (n === 2) gcRenderDayPicker();
     // Scroll content to top
     var gc = document.querySelector('.gc-content');
     if(gc) gc.scrollTop = 0;
