@@ -1876,8 +1876,8 @@
               <div class="gc-rate-guar">Guaranteed</div>
             </div>
             <div class="gc-rate-price-col">
-              <div class="gc-rate-amount-lbl">3rd Party Pricing</div>
-              <div class="gc-rate-amount">$2,364.50</div>
+              <div class="gc-rate-amount-lbl" id="gc-rate-lbl-1">3rd Party Pricing</div>
+              <div class="gc-rate-amount" id="gc-rate-price-1">$2,364.50</div>
               <button class="gc-rate-select">SELECT</button>
             </div>
           </div>
@@ -1895,8 +1895,8 @@
               <div class="gc-rate-guar">Guaranteed</div>
             </div>
             <div class="gc-rate-price-col">
-              <div class="gc-rate-amount-lbl">3rd Party Pricing</div>
-              <div class="gc-rate-amount">$2,059.86</div>
+              <div class="gc-rate-amount-lbl" id="gc-rate-lbl-2">3rd Party Pricing</div>
+              <div class="gc-rate-amount" id="gc-rate-price-2">$2,059.86</div>
               <button class="gc-rate-select">SELECT</button>
             </div>
           </div>
@@ -1913,8 +1913,8 @@
               <div class="gc-rate-time">5:00 PM</div>
             </div>
             <div class="gc-rate-price-col">
-              <div class="gc-rate-amount-lbl">3rd Party Pricing</div>
-              <div class="gc-rate-amount">$1,881.72</div>
+              <div class="gc-rate-amount-lbl" id="gc-rate-lbl-3">3rd Party Pricing</div>
+              <div class="gc-rate-amount" id="gc-rate-price-3">$1,881.72</div>
               <button class="gc-rate-select">SELECT</button>
             </div>
           </div>
@@ -3312,10 +3312,17 @@ window.mnScrollPricing = function(e, tier) {
     gcCheck();
   };
 
+  var gcOrigPrices = { 1: '$2,364.50', 2: '$2,059.86', 3: '$1,881.72' };
+  var gcFriPrices  = { 1: '$2,059.50', 2: '$1,791.86', 3: '$1,637.72' };
   window.gcShowFriRates = function() {
     document.getElementById('gc-fri-banner').style.display = 'none';
     document.getElementById('gc-fri-active').style.display = 'flex';
-    // Update rates header date to next Friday
+    [1,2,3].forEach(function(i) {
+      var el = document.getElementById('gc-rate-price-' + i);
+      var lbl = document.getElementById('gc-rate-lbl-' + i);
+      if (el) { el.textContent = gcFriPrices[i]; el.style.color = '#16a34a'; }
+      if (lbl) lbl.textContent = 'Dynamic Rate — Friday';
+    });
     var d = new Date(); var day = d.getDay();
     var diff = (5 - day + 7) % 7 || 7; d.setDate(d.getDate() + diff);
     var dateShow = document.getElementById('gc-rate-dateshow');
@@ -3324,6 +3331,12 @@ window.mnScrollPricing = function(e, tier) {
   window.gcRevertRates = function() {
     document.getElementById('gc-fri-banner').style.display = 'flex';
     document.getElementById('gc-fri-active').style.display = 'none';
+    [1,2,3].forEach(function(i) {
+      var el = document.getElementById('gc-rate-price-' + i);
+      var lbl = document.getElementById('gc-rate-lbl-' + i);
+      if (el) { el.textContent = gcOrigPrices[i]; el.style.color = ''; }
+      if (lbl) lbl.textContent = '3rd Party Pricing';
+    });
     var dateShow = document.getElementById('gc-rate-dateshow');
     if (dateShow) dateShow.textContent = 'Jul 21, 2026';
   };
