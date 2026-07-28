@@ -675,8 +675,9 @@
   .mn-prop-title { font-size:16px; font-weight:700; color:#0f0525; margin-bottom:8px; }
   .mn-prop-desc { font-size:13px; color:#666; line-height:1.6; }
   /* Pricing */
-  .mn-pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:980px; margin:0 auto; }
-  .mn-plan { border:1.5px solid #e8e4f0; border-radius:14px; padding:28px 26px 32px; position:relative; background:#fff; }
+  .mn-pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:980px; margin:0 auto; align-items:stretch; }
+  .mn-plan { border:1.5px solid #e8e4f0; border-radius:14px; padding:28px 26px 32px; position:relative; background:#fff; display:flex; flex-direction:column; }
+  .mn-plan .mn-plan-cta { margin-top:auto; padding-top:24px; }
   .mn-plan.featured { border-color:#4D148C; box-shadow:0 0 0 4px rgba(77,20,140,0.07); }
   .mn-plan-badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#4D148C; color:#fff; font-size:10px; font-weight:800; padding:4px 14px; border-radius:20px; letter-spacing:0.06em; white-space:nowrap; }
   .mn-plan-name { font-size:13px; font-weight:700; color:#888; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px; }
