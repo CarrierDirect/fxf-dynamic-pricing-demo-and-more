@@ -2061,49 +2061,39 @@
             <span class="lr-w-title">Where Is FXF Losing on Price?</span>
             <span class="lr-w-date"></span>
           </div>
-          <div class="lr-w-sub">Lanes where the price gap was largest when FXF lost — median dollar difference between FXF's quote and the winning competitor's price.</div>
-          <div class="lr-ctrl">
-            <div class="lr-met-grp">
-              <button class="lr-met on">$ GAP</button>
-              <button class="lr-met">% GAP</button>
-              <button class="lr-met">RANK</button>
-            </div>
-            <div class="lr-per-grp">
-              <button class="lr-per" data-per="1d">1D</button>
-              <button class="lr-per" data-per="7d">7D</button>
-              <button class="lr-per" data-per="1m">1M</button>
-              <button class="lr-per on" data-per="3m">3M</button>
-              <button class="lr-per" data-per="1y">1Y</button>
-              <button class="lr-per" data-per="custom">CUSTOM</button>
-            </div>
+          <div class="lr-w-sub">Median dollar gap between FXF's quote and the winning competitor — toggle between hardest-to-win and most-winnable lanes.</div>
+          <div style="display:flex;gap:6px;padding:8px 14px;border-bottom:1px solid #f3f4f6;">
+            <button id="gap-btn-big" onclick="showGapView('big')" style="flex:1;padding:5px 10px;font-size:11px;font-weight:700;border-radius:6px;border:1.5px solid #dc2626;background:#dc2626;color:#fff;cursor:pointer;font-family:inherit;">Biggest gap</button>
+            <button id="gap-btn-small" onclick="showGapView('small')" style="flex:1;padding:5px 10px;font-size:11px;font-weight:700;border-radius:6px;border:1.5px solid #e5e7eb;background:#fff;color:#6b7280;cursor:pointer;font-family:inherit;">Smallest gap</button>
           </div>
-          <div class="lr-custom-row">
-          <div class="lr-date-field">
-            <span class="lr-date-lbl">START DATE</span>
-            <input type="date" value="2026-04-21">
-            <span class="lr-date-ico">&#128197;</span>
-          </div>
-          <div class="lr-date-field">
-            <span class="lr-date-lbl">END DATE</span>
-            <input type="date" value="2026-07-19">
-            <span class="lr-date-ico">&#128197;</span>
-          </div>
-          <button class="lr-custom-x">&#215;</button>
-        </div>
           <div class="lr-views">
             <div class="lr-view lr-view-table active">
-              <div class="lr-col-hdr"><span>Lane &amp; competitor who won</span><span>FXF was more expensive by</span></div>
-              <div class="lr-rows">
-                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; GA &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$266</span></div>
-                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; VA &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$231</span></div>
-                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; CA &nbsp;<span class="lr-ctag c-xpo">XPO</span></span><span class="lr-dval red">+$218</span></div>
-                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; TX &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$183</span></div>
-                <div class="lr-drow"><span class="lr-dlbl">IL &#8594; FL &nbsp;<span class="lr-ctag c-est">Estes</span></span><span class="lr-dval red">+$188</span></div>
-                <div class="lr-drow"><span class="lr-dlbl">OH &#8594; TX &nbsp;<span class="lr-ctag c-xpo">XPO</span></span><span class="lr-dval amb">+$152</span></div>
+              <div id="gap-view-big">
+                <div class="lr-col-hdr"><span>Lane &amp; competitor who won</span><span>FXF was more expensive by</span></div>
+                <div class="lr-rows">
+                  <div class="lr-drow"><span class="lr-dlbl">IL &#8594; GA &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$266</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">IL &#8594; VA &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$231</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">IL &#8594; CA &nbsp;<span class="lr-ctag c-xpo">XPO</span></span><span class="lr-dval red">+$218</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">IL &#8594; FL &nbsp;<span class="lr-ctag c-est">Estes</span></span><span class="lr-dval red">+$188</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">IL &#8594; TX &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval red">+$183</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">OH &#8594; TX &nbsp;<span class="lr-ctag c-xpo">XPO</span></span><span class="lr-dval red">+$152</span></div>
+                </div>
+              </div>
+              <div id="gap-view-small" style="display:none;">
+                <div class="lr-col-hdr"><span>Lane &amp; competitor who won</span><span>FXF was more expensive by</span></div>
+                <div class="lr-rows">
+                  <div class="lr-drow"><span class="lr-dlbl">IL &#8594; NC &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval grn">+$123</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">KY &#8594; TX &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval grn">+$124</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">FL &#8594; TX &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval grn">+$124</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">IN &#8594; FL &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval grn">+$126</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">IL &#8594; MO &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval grn">+$135</span></div>
+                  <div class="lr-drow"><span class="lr-dlbl">IL &#8594; TN &nbsp;<span class="lr-ctag c-oth">R+L</span></span><span class="lr-dval grn">+$160</span></div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="lr-w-foot"><strong>Median FXF overprice when losing: +$65 (29.1%)</strong> &#8212; Recommend targeted repricing on IL outbound lanes to recover volume</div>
+          <div id="gap-foot-big" class="lr-w-foot"><strong>Biggest gap lanes are hardest to recapture</strong> &mdash; FXF is $150–$266 more expensive; significant repricing required to compete</div>
+          <div id="gap-foot-small" class="lr-w-foot" style="display:none;"><strong>Smallest gap lanes are most winnable</strong> &mdash; FXF is only $123–$160 more expensive; targeted small price moves could flip these</div>
         </div>
 
         <!-- W2b: Top Loss Lanes by Volume -->
@@ -3928,6 +3918,22 @@ document.querySelectorAll('.lr-widget').forEach(function(w){
   var d = w.querySelector('.lr-w-date');
   if (d) d.textContent = lrDateRange('3m');
 });
+
+window.showGapView = function(mode) {
+  var isBig = mode === 'big';
+  document.getElementById('gap-view-big').style.display = isBig ? '' : 'none';
+  document.getElementById('gap-view-small').style.display = isBig ? 'none' : '';
+  document.getElementById('gap-foot-big').style.display = isBig ? '' : 'none';
+  document.getElementById('gap-foot-small').style.display = isBig ? 'none' : '';
+  var btnBig = document.getElementById('gap-btn-big');
+  var btnSmall = document.getElementById('gap-btn-small');
+  btnBig.style.background = isBig ? '#dc2626' : '#fff';
+  btnBig.style.color = isBig ? '#fff' : '#6b7280';
+  btnBig.style.borderColor = isBig ? '#dc2626' : '#e5e7eb';
+  btnSmall.style.background = isBig ? '#fff' : '#16a34a';
+  btnSmall.style.color = isBig ? '#6b7280' : '#fff';
+  btnSmall.style.borderColor = isBig ? '#e5e7eb' : '#16a34a';
+};
 </script>
 </body>
 </html>
